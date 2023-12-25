@@ -14,5 +14,8 @@ namespace NTier_ECommerce_Entities
         public string Logo { get; set; }
         public string Name { get; set; }    
         public string Description { get; set; }
+
+        // Relations
+        public List<Movie> Movies { get; set; }
     }
 }
