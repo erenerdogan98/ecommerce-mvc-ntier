@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NTier_ECommerce_DAL.Context
+namespace NTier_ECommerce_DAL.Database
 {
     public class Context : DbContext
     {
