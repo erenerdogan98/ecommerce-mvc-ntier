@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTier_ECommerce_Entities.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,8 @@ namespace NTier_ECommerce_Entities
         public string MovieImageUrl { get; set; }
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
+        // for category movies 
+        public CategoryMovie CategoryMovie { get; set; }
 
         //Relations
 
