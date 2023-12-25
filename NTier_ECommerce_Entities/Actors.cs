@@ -14,5 +14,8 @@ namespace NTier_ECommerce_Entities
         public string NameSurname { get; set; }
         public string? ProfileUrl { get; set; }
         public string? Biography { get; set; }
+
+        // Relations 
+        public List<Actors_Movie> Actors_Movies { get; set; }
     }
 }
