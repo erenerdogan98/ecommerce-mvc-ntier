@@ -35,5 +35,12 @@ These methods are important in determining and directing the relationship.
 
 *HasForeignKey: Specifies foreign key relationships.*/
         }
+
+        // for creating table on database
+        public DbSet<Actors> Actors { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Actors_Movie> Actors_Movies { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<Producer> Producers { get; set; }
     }
 }
