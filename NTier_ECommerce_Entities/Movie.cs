@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_Entities
 {
-    public class Movie
+    public class Movie : IEntityBase
     {
         [Key]
         public int Id { get; set; }

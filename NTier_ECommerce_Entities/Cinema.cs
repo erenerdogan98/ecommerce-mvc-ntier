@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_Entities
 {
-    public class Cinema
+    public class Cinema : IEntityBase
     {
         [Key]
         public int Id { get; set; }

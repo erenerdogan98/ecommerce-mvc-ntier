@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_Entities
 {
-    public class Producer
+    public class Producer : IEntityBase
     {
         [Key]
-        public int MyProperty { get; set; }
+        public int Id { get; set; }
         public string NameSurname { get; set; }
         public string ProfileUrl { get; set; }
         public string Biography { get; set; }
