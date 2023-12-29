@@ -6,10 +6,10 @@ namespace NTier_ECommerce_DAL.Abstract
 {
     public interface IActorsService
     {
-        public void AddActor(Actors actor);
-        public void RemoveActor(Actors actor);
-        public void UpdateActor(Actors actor);
-        public IEnumerable<Actors> GetAllActors();
-        Actors GetActorById(int actorId);
+        Task AddActorAsync(Actors actor);
+        Task RemoveActorAsync(Actors actor);
+        Task UpdateActorAsync(Actors actor);
+        Task<IEnumerable<Actors>> GetAllActorsAsync();
+        Task<Actors> GetActorByIdAsync(int actorId);
     }
 }
