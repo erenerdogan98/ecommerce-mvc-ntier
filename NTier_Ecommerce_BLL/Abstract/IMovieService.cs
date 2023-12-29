@@ -9,10 +9,10 @@ namespace NTier_Ecommerce_BLL.Abstract
 {
     public interface IMovieService
     {
-        public void AddMovie(Movie movie);
-        public void RemoveMovie(Movie movie);
-        public IEnumerable<Movie> GetAllMovies();
-        public void UpdateMovie(Movie movie);
-        Movie GetMovieById(int id);
+        Task AddMovie(Movie movie);
+        Task RemoveMovie(Movie movie);
+        Task<IEnumerable<Movie>> GetAllMovies();
+        Task UpdateMovie(Movie movie);
+        Task GetMovieById(int id);
     }
 }
