@@ -13,6 +13,6 @@ namespace NTier_Ecommerce_BLL.Abstract
         Task RemoveMovie(Movie movie);
         Task<IEnumerable<Movie>> GetAllMovies();
         Task UpdateMovie(Movie movie);
-        Task GetMovieById(int id);
+        Task<Movie> GetMovieById(int id);
     }
 }

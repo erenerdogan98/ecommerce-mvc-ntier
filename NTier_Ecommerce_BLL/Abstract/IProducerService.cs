@@ -9,10 +9,10 @@ namespace NTier_Ecommerce_BLL.Abstract
 {
     public interface IProducerService
     {
-        public void AddProducer(Producer producer);
-        public void Update(Producer producer);
-        public void Delete(Producer producer);
-        public IEnumerable<Producer> GetAll();
-        Producer GetProducer(int id);
+        Task AddProducer(Producer producer);
+        Task Update(Producer producer);
+        Task Delete(Producer producer);
+        Task<IEnumerable<Producer>> GetAll();
+        Task<Producer> GetProducer(int id);
     }
 }

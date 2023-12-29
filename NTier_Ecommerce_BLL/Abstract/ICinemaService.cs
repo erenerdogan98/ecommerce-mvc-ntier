@@ -10,11 +10,11 @@ namespace NTier_ECommerce_DAL.Abstract
 {
     public interface ICinemaService 
     {
-        public void AddCinema(Cinema cinema);
-        public void RemoveCinema(Cinema cinema);
-        public void UpdateCinema(Cinema cinema);
-        public IEnumerable<Cinema> GetAllCinema();  
-        Cinema GetCinemaById(int id);
+        Task AddCinema(Cinema cinema);
+        Task RemoveCinema(Cinema cinema);
+        Task UpdateCinema(Cinema cinema);
+        Task<IEnumerable<Cinema>> GetAllCinema();  
+        Task<Cinema> GetCinemaById(int id);
 
     }
 }
