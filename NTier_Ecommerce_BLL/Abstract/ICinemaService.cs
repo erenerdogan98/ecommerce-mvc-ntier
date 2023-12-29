@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_DAL.Abstract
 {
-    internal interface ICinemaService : IGenericRepository<Cinema>
+    public interface ICinemaService 
     {
+        public void AddCinema(Cinema cinema);
+        public void RemoveCinema(Cinema cinema);
+        public void UpdateCinema(Cinema cinema);
+        public IEnumerable<Cinema> GetAllCinema();  
+        Cinema GetCinemaById(int id);
+
     }
 }
