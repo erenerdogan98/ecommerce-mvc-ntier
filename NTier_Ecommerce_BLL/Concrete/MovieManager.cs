@@ -20,7 +20,7 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public Task<IEnumerable<Movie>> GetAllMovies() => _eFMovieRepository.GetAllAsync();
 
-        public Task GetMovieById(int id) => _eFMovieRepository.GetByIdAsync(id);
+        public Task<Movie> GetMovieById(int id) => _eFMovieRepository.GetByIdAsync(id);
 
         public Task RemoveMovie(Movie movie) => _eFMovieRepository.DeleteAsync(movie.Id);
 
