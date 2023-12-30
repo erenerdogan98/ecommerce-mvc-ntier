@@ -1,7 +1,12 @@
+using NTier_ECommerce_UI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Services configurations
+builder.Services.Configure();
 
 var app = builder.Build();
 
