@@ -1,8 +1,6 @@
-﻿using NTier_ECommerce_DAL.GenericRepository;
-using NTier_ECommerce_Entities;
+﻿using NTier_ECommerce_Entities;
 
-
-namespace NTier_ECommerce_DAL.Abstract
+namespace NTier_Ecommerce_BLL.Abstract
 {
     public interface IActorsService
     {
