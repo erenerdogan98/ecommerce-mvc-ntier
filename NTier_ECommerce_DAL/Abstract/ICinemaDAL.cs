@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_DAL.Abstract
 {
-    internal interface ICinemaDAL : IGenericRepository<Cinema>
+    public interface ICinemaDAL : IGenericRepository<Cinema>
     {
     }
 }
