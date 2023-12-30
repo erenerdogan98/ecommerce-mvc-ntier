@@ -1,11 +1,7 @@
-﻿using NTier_ECommerce_DAL.Abstract;
+﻿using NTier_Ecommerce_BLL.Abstract;
 using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace NTier_Ecommerce_BLL.Concrete
 {
