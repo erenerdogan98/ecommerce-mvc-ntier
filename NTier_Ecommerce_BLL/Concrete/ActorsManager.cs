@@ -1,4 +1,5 @@
 ﻿using NTier_Ecommerce_BLL.Abstract;
+using NTier_ECommerce_DAL.Abstract;
 using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
 
@@ -7,23 +8,25 @@ namespace NTier_Ecommerce_BLL.Concrete
 {
     public class ActorsManager : IActorsService
     {
-        private readonly EFActorsRepository eFActorsRepository;
+        //private readonly EFActorsRepository eFActorsRepository; 
+        // we will use IActorsDAL because it will be more fast
+        private readonly IActorsDAL _actorsDal;
 
-        public ActorsManager(EFActorsRepository eFActorsRepository)
+        public ActorsManager(IActorsDAL actorsDAL)
         {
-            this.eFActorsRepository = eFActorsRepository ?? throw new ArgumentNullException(nameof(eFActorsRepository));
+            _actorsDal = actorsDAL ?? throw new ArgumentNullException(nameof(actorsDAL));
         }
 
-        public Task AddActorAsync(Actors actor) => eFActorsRepository.AddAsync(actor);
+        public Task AddActorAsync(Actors actor) => _actorsDal.AddAsync(actor);
 
 
-        public Task<Actors> GetActorByIdAsync(int actorId) => eFActorsRepository.GetByIdAsync(actorId);
+        public Task<Actors> GetActorByIdAsync(int actorId) => _actorsDal.GetByIdAsync(actorId);
 
-        public Task<IEnumerable<Actors>> GetAllActorsAsync() => eFActorsRepository.GetAllAsync();
+        public Task<IEnumerable<Actors>> GetAllActorsAsync() => _actorsDal.GetAllAsync();
 
-        public Task RemoveActorAsync(Actors actor) => eFActorsRepository.DeleteAsync(actor.Id);
+        public Task RemoveActorAsync(Actors actor) => _actorsDal.DeleteAsync(actor.Id);
 
-        public Task UpdateActorAsync(Actors actor) => eFActorsRepository.UpdateAsync(actor.Id, actor);
+        public Task UpdateActorAsync(Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
     }
 }
 /* 
