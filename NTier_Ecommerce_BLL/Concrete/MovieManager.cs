@@ -1,4 +1,5 @@
 ﻿using NTier_Ecommerce_BLL.Abstract;
+using NTier_ECommerce_DAL.Abstract;
 using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
 using System;
@@ -11,19 +12,20 @@ namespace NTier_Ecommerce_BLL.Concrete
 {
     public class MovieManager : IMovieService
     {
-        private readonly EFMovieRepository _eFMovieRepository;
-        public MovieManager(EFMovieRepository eFMovieRepository)
+        //private readonly EFMovieRepository _eFMovieRepository;
+        private readonly IMovieDAL _movieDAL;
+        public MovieManager(IMovieDAL movieDAL)
         {
-            _eFMovieRepository = eFMovieRepository;
+            _movieDAL = movieDAL ?? throw new ArgumentNullException(nameof(movieDAL));
         }
-        public Task AddMovie(Movie movie) => _eFMovieRepository.AddAsync(movie);
+        public Task AddMovie(Movie movie) => _movieDAL.AddAsync(movie);
 
-        public Task<IEnumerable<Movie>> GetAllMovies() => _eFMovieRepository.GetAllAsync();
+        public Task<IEnumerable<Movie>> GetAllMovies() => _movieDAL.GetAllAsync();
 
-        public Task<Movie> GetMovieById(int id) => _eFMovieRepository.GetByIdAsync(id);
+        public Task<Movie> GetMovieById(int id) => _movieDAL.GetByIdAsync(id);
 
-        public Task RemoveMovie(Movie movie) => _eFMovieRepository.DeleteAsync(movie.Id);
+        public Task RemoveMovie(Movie movie) => _movieDAL.DeleteAsync(movie.Id);
 
-        public Task UpdateMovie(Movie movie) => _eFMovieRepository.UpdateAsync(movie.Id,movie);
+        public Task UpdateMovie(Movie movie) => _movieDAL.UpdateAsync(movie.Id,movie);
     }
 }
