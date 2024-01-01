@@ -1,4 +1,5 @@
 ﻿using NTier_Ecommerce_BLL.Abstract;
+using NTier_ECommerce_DAL.Abstract;
 using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
 using System;
@@ -11,19 +12,20 @@ namespace NTier_Ecommerce_BLL.Concrete
 {
     public class ProducerManager : IProducerService
     {
-        private readonly EFProducerRepository eFProducerRepository;
-        public ProducerManager(EFProducerRepository eFProducerRepository)
+        //private readonly EFProducerRepository eFProducerRepository;
+        private readonly IProducerDAL _producerDAL;
+        public ProducerManager(IProducerDAL producerDAL)
         {
-            this.eFProducerRepository = eFProducerRepository ?? throw new ArgumentNullException(nameof(eFProducerRepository)); ;
+            _producerDAL = producerDAL ?? throw new ArgumentNullException(nameof(producerDAL)); ;
         }
 
-        public Task AddProducer(Producer producer) => eFProducerRepository.AddAsync(producer);
+        public Task AddProducer(Producer producer) => _producerDAL.AddAsync(producer);
 
-        public Task Delete(Producer producer) => eFProducerRepository.DeleteAsync(producer.Id);
-        public Task<IEnumerable<Producer>> GetAll() => eFProducerRepository.GetAllAsync();
+        public Task Delete(Producer producer) => _producerDAL.DeleteAsync(producer.Id);
+        public Task<IEnumerable<Producer>> GetAll() => _producerDAL.GetAllAsync();
 
-        public Task<Producer> GetProducer(int id) => eFProducerRepository.GetByIdAsync(id);
+        public Task<Producer> GetProducer(int id) => _producerDAL.GetByIdAsync(id);
 
-        public Task Update(Producer producer) => eFProducerRepository.UpdateAsync(producer.Id, producer);
+        public Task Update(Producer producer) => _producerDAL.UpdateAsync(producer.Id, producer);
     }
 }
