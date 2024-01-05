@@ -83,7 +83,7 @@ namespace NTier_ECommerce_UI.Controllers
 
             return View("RegisterCompleted");
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
