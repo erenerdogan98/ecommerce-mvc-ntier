@@ -5,7 +5,7 @@ namespace NTier_Ecommerce_BLL.Abstract
     {
         Task AddAsync(T entity);
         Task DeleteAsync(int id);
-        Task<T> UpdateAsync(int id,T entity);
+        Task UpdateAsync(int id,T entity);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
     }
