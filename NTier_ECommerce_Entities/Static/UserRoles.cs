@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// for authantication operations 
 
 namespace NTier_ECommerce_Entities.Static
 {
