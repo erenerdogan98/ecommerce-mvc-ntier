@@ -18,6 +18,6 @@ namespace NTier_ECommerce_Entities
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }
-
+        public List<OrderItem> OrderItems { get; set; }
     }
 }
