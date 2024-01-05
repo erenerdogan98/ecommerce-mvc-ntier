@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NTier_ECommerce_Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace NTier_ECommerce_DAL.Database
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<ApplicationUser> /*DbContext instead of this */
     {
         string connectionString = "server = DESKTOP-57R498V\\SQLEXPRESS01;database = ntierecommerce; integrated security = true;TrustServerCertificate=true;";
 
