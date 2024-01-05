@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 
-namespace NTier_ECommerce_Entities.ViewModels
+namespace NTier_ECommerce_UI.ViewModels
 {
     public class VMLogin
     {
