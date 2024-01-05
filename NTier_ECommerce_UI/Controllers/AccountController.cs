@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NTier_ECommerce_DAL.Database;
 using NTier_ECommerce_Entities;
 using NTier_ECommerce_Entities.Static;
-using NTier_ECommerce_Entities.ViewModels;
+using NTier_ECommerce_UI.ViewModels;
 
 namespace NTier_ECommerce_UI.Controllers
 {
