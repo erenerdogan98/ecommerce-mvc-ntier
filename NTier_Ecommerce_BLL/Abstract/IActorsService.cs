@@ -5,7 +5,7 @@ namespace NTier_Ecommerce_BLL.Abstract
     public interface IActorsService
     {
         Task AddActorAsync(Actors actor);
-        Task RemoveActorAsync(int id,Actors actor);
+        Task RemoveActorAsync(int id);
         Task UpdateActorAsync(int id,Actors actor);
         Task<IEnumerable<Actors>> GetAllActorsAsync();
         Task<Actors> GetActorByIdAsync(int actorId);
