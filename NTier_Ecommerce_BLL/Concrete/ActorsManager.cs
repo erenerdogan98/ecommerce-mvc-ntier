@@ -24,9 +24,9 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public Task<IEnumerable<Actors>> GetAllActorsAsync() => _actorsDal.GetAllAsync();
 
-        public Task RemoveActorAsync(Actors actor) => _actorsDal.DeleteAsync(actor.Id);
+        public Task RemoveActorAsync(int id) => _actorsDal.DeleteAsync(id);
 
-        public Task UpdateActorAsync(Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
+        public Task UpdateActorAsync(int id, Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
     }
 }
 /* 
