@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace NTier_Ecommerce_BLL.Abstract
 {
-    public interface IMovieService
+    public interface IMovieService : IGenericService<Movie>
     {
-        Task AddMovie(Movie movie);
-        Task RemoveMovie(Movie movie);
-        Task<IEnumerable<Movie>> GetAllMovies();
-        Task UpdateMovie(Movie movie);
-        Task<Movie> GetMovieById(int id);
+        //Task AddMovie(Movie movie);
+        //Task RemoveMovie(Movie movie);
+        //Task<IEnumerable<Movie>> GetAllMovies();
+        //Task UpdateMovie(Movie movie);
+        //Task<Movie> GetMovieById(int id);
     }
 }
