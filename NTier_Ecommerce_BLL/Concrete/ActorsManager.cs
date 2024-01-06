@@ -17,16 +17,25 @@ namespace NTier_Ecommerce_BLL.Concrete
             _actorsDal = actorsDAL ?? throw new ArgumentNullException(nameof(actorsDAL));
         }
 
-        public Task AddActorAsync(Actors actor) => _actorsDal.AddAsync(actor);
+        //public Task AddActorAsync(Actors actor) => _actorsDal.AddAsync(actor);
 
+        public Task AddAsync(Actors actor) => _actorsDal.AddAsync(actor);
 
-        public Task<Actors> GetActorByIdAsync(int actorId) => _actorsDal.GetByIdAsync(actorId);
+        public Task DeleteAsync(int id) => _actorsDal.DeleteAsync(id);
 
-        public Task<IEnumerable<Actors>> GetAllActorsAsync() => _actorsDal.GetAllAsync();
+        //public Task<Actors> GetActorByIdAsync(int actorId) => _actorsDal.GetByIdAsync(actorId);
 
-        public Task RemoveActorAsync(int id) => _actorsDal.DeleteAsync(id);
+        //public Task<IEnumerable<Actors>> GetAllActorsAsync() => _actorsDal.GetAllAsync();
 
-        public Task UpdateActorAsync(int id, Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
+        public Task<IEnumerable<Actors>> GetAllAsync() => _actorsDal.GetAllAsync();
+
+        public Task<Actors> GetByIdAsync(int id) => _actorsDal.GetByIdAsync(id);
+
+        //public Task RemoveActorAsync(int id) => _actorsDal.DeleteAsync(id);
+
+        //public Task UpdateActorAsync(int id, Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
+
+        Task IGenericService<Actors>.UpdateAsync(int id, Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
     }
 }
 /* 
