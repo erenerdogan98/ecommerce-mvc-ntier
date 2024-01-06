@@ -18,14 +18,24 @@ namespace NTier_Ecommerce_BLL.Concrete
         {
             _movieDAL = movieDAL ?? throw new ArgumentNullException(nameof(movieDAL));
         }
-        public Task AddMovie(Movie movie) => _movieDAL.AddAsync(movie);
 
-        public Task<IEnumerable<Movie>> GetAllMovies() => _movieDAL.GetAllAsync();
+        public Task AddAsync(Movie movie) => _movieDAL.AddAsync(movie);
 
-        public Task<Movie> GetMovieById(int id) => _movieDAL.GetByIdAsync(id);
+        public Task DeleteAsync(int id) => _movieDAL.DeleteAsync(id);
 
-        public Task RemoveMovie(Movie movie) => _movieDAL.DeleteAsync(movie.Id);
+        public Task<IEnumerable<Movie>> GetAllAsync() => _movieDAL.GetAllAsync();
 
-        public Task UpdateMovie(Movie movie) => _movieDAL.UpdateAsync(movie.Id,movie);
+        public Task<Movie> GetByIdAsync(int id) => _movieDAL.GetByIdAsync(id);
+
+        public Task UpdateAsync(int id, Movie entity) => _movieDAL.UpdateAsync(id, entity);
+        //public Task AddMovie(Movie movie) => _movieDAL.AddAsync(movie);
+
+        //public Task<IEnumerable<Movie>> GetAllMovies() => _movieDAL.GetAllAsync();
+
+        //public Task<Movie> GetMovieById(int id) => _movieDAL.GetByIdAsync(id);
+
+        //public Task RemoveMovie(Movie movie) => _movieDAL.DeleteAsync(movie.Id);
+
+        //public Task UpdateMovie(Movie movie) => _movieDAL.UpdateAsync(movie.Id,movie);
     }
 }
