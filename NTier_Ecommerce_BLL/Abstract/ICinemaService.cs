@@ -3,13 +3,13 @@
 
 namespace NTier_Ecommerce_BLL.Abstract
 {
-    public interface ICinemaService 
+    public interface ICinemaService : IGenericService<Cinema>
     {
-        Task AddCinema(Cinema cinema);
-        Task RemoveCinema(Cinema cinema);
-        Task UpdateCinema(Cinema cinema);
-        Task<IEnumerable<Cinema>> GetAllCinema();  
-        Task<Cinema> GetCinemaById(int id);
+        //Task AddCinema(Cinema cinema);
+        //Task RemoveCinema(int id);
+        //Task UpdateCinema(int id, Cinema cinema);
+        //Task<IEnumerable<Cinema>> GetAllCinema();  
+        //Task<Cinema> GetCinemaById(int id);
 
     }
 }
