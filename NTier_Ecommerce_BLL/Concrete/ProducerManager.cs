@@ -19,13 +19,23 @@ namespace NTier_Ecommerce_BLL.Concrete
             _producerDAL = producerDAL ?? throw new ArgumentNullException(nameof(producerDAL)); ;
         }
 
-        public Task AddProducer(Producer producer) => _producerDAL.AddAsync(producer);
+        public Task AddAsync(Producer producer) => _producerDAL.AddAsync(producer);
 
-        public Task Delete(Producer producer) => _producerDAL.DeleteAsync(producer.Id);
-        public Task<IEnumerable<Producer>> GetAll() => _producerDAL.GetAllAsync();
+        public Task DeleteAsync(int id) => _producerDAL.DeleteAsync(id);
 
-        public Task<Producer> GetProducer(int id) => _producerDAL.GetByIdAsync(id);
+        public Task<IEnumerable<Producer>> GetAllAsync() => _producerDAL.GetAllAsync();
 
-        public Task Update(Producer producer) => _producerDAL.UpdateAsync(producer.Id, producer);
+        public Task<Producer> GetByIdAsync(int id) => _producerDAL.GetByIdAsync(id);
+
+        public Task UpdateAsync(int id, Producer entity) => _producerDAL.UpdateAsync(id, entity);
+
+        //public Task AddProducer(Producer producer) => _producerDAL.AddAsync(producer);
+
+        //public Task Delete(Producer producer) => _producerDAL.DeleteAsync(producer.Id);
+        //public Task<IEnumerable<Producer>> GetAll() => _producerDAL.GetAllAsync();
+
+        //public Task<Producer> GetProducer(int id) => _producerDAL.GetByIdAsync(id);
+
+        //public Task Update(Producer producer) => _producerDAL.UpdateAsync(producer.Id, producer);
     }
 }
