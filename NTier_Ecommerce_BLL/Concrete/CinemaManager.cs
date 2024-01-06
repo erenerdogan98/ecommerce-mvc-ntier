@@ -13,15 +13,25 @@ namespace NTier_Ecommerce_BLL.Concrete
         {
             _cinemaDAL = cinemaDAL ?? throw new ArgumentNullException(nameof(cinemaDAL)); ;
         }
-        public Task AddCinema(Cinema cinema) => _cinemaDAL.AddAsync(cinema);
 
-        public Task<IEnumerable<Cinema>> GetAllCinema() => _cinemaDAL.GetAllAsync();
+        public Task AddAsync(Cinema cinema) => _cinemaDAL.AddAsync(cinema);
 
-        public Task<Cinema> GetCinemaById(int id) => _cinemaDAL.GetByIdAsync(id);
+        public Task DeleteAsync(int id) => _cinemaDAL.DeleteAsync(id);
 
-        public Task RemoveCinema(Cinema cinema) => _cinemaDAL.DeleteAsync(cinema.Id);
+        public Task<IEnumerable<Cinema>> GetAllAsync() => _cinemaDAL.GetAllAsync();
 
-        public Task UpdateCinema(Cinema cinema) => _cinemaDAL.UpdateAsync(cinema.Id, cinema);
-        
+        public Task<Cinema> GetByIdAsync(int id) => _cinemaDAL.GetByIdAsync(id);
+
+        public Task UpdateAsync(int id, Cinema cinema) => _cinemaDAL.UpdateAsync(id, cinema);
+        //public Task AddCinema(Cinema cinema) => _cinemaDAL.AddAsync(cinema);
+
+        //public Task<IEnumerable<Cinema>> GetAllCinema() => _cinemaDAL.GetAllAsync();
+
+        //public Task<Cinema> GetCinemaById(int id) => _cinemaDAL.GetByIdAsync(id);
+
+        //public Task RemoveCinema(Cinema cinema) => _cinemaDAL.DeleteAsync(cinema.Id);
+
+        //public Task UpdateCinema(Cinema cinema) => _cinemaDAL.UpdateAsync(cinema.Id, cinema);
+
     }
 }
