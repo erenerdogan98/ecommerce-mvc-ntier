@@ -125,6 +125,7 @@ namespace NTier_ECommerce_UI.Controllers
 
             await _moviesService.UpdateMovieAsync(movie);
             return RedirectToAction(nameof(Index));
+
         }
     }
 }
