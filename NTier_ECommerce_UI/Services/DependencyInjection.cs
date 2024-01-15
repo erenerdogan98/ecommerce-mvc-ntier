@@ -3,6 +3,8 @@ using NTier_Ecommerce_BLL.Concrete;
 using NTier_ECommerce_DAL.Abstract;
 using NTier_ECommerce_DAL.Database;
 using NTier_ECommerce_DAL.EFRepository;
+using AutoMapper;
+using NTier_ECommerce_UI.Mapping;
 
 namespace NTier_ECommerce_UI.Services
 {
@@ -24,6 +26,8 @@ namespace NTier_ECommerce_UI.Services
 
             services.AddScoped<IProducerService, ProducerManager>();        
             services.AddScoped<IProducerDAL, EFProducerRepository>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
         }
     }
 }

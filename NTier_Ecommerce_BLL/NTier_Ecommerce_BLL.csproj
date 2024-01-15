@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NTier_ECommerce_DAL\NTier_ECommerce_DAL.csproj" />
     <ProjectReference Include="..\NTier_ECommerce_Entities\NTier_ECommerce_Entities.csproj" />
   </ItemGroup>

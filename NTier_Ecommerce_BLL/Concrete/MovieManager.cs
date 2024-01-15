@@ -1,5 +1,8 @@
-﻿using NTier_Ecommerce_BLL.Abstract;
+﻿using DTOLayer.MovieDto;
+using Microsoft.EntityFrameworkCore;
+using NTier_Ecommerce_BLL.Abstract;
 using NTier_ECommerce_DAL.Abstract;
+using NTier_ECommerce_DAL.Database;
 using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
 using System;
@@ -14,20 +17,59 @@ namespace NTier_Ecommerce_BLL.Concrete
     {
         //private readonly EFMovieRepository _eFMovieRepository;
         private readonly IMovieDAL _movieDAL;
-        public MovieManager(IMovieDAL movieDAL)
+        private readonly Context _context;
+        public MovieManager(IMovieDAL movieDAL, Context context)
         {
             _movieDAL = movieDAL ?? throw new ArgumentNullException(nameof(movieDAL));
+            _context = context ?? throw new ArgumentNullException(nameof(_context));
         }
 
         public Task AddAsync(Movie movie) => _movieDAL.AddAsync(movie);
+
+        public Task AddNewMovieAsync(Movie data)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task DeleteAsync(int id) => _movieDAL.DeleteAsync(id);
 
         public Task<IEnumerable<Movie>> GetAllAsync() => _movieDAL.GetAllAsync();
 
+        public Task<IEnumerable<Movie>> GetAllAsync(Func<object, object> value)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Movie> GetByIdAsync(int id) => _movieDAL.GetByIdAsync(id);
 
+
+        public Task<Movie> GetMovieByIdAsync(int id, params Func<Movie, object>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Movie> GetMovieByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<VMNewMovieDropdownsDTO> GetNewMovieDropdownsValues()
+        {
+            var response = new VMNewMovieDropdownsDTO()
+            {
+                Actors = await _context.Actors.OrderBy(n => n.NameSurname).ToListAsync(),
+                Cinemas = await _context.Cinemas.OrderBy(n => n.Name).ToListAsync(),
+                Producers = await _context.Producers.OrderBy(n => n.NameSurname).ToListAsync()
+            };
+            return response;
+        }
+
         public Task UpdateAsync(int id, Movie entity) => _movieDAL.UpdateAsync(id, entity);
+
+        public Task UpdateMovieAsync(Movie data)
+        {
+            throw new NotImplementedException();
+        }
         //public Task AddMovie(Movie movie) => _movieDAL.AddAsync(movie);
 
         //public Task<IEnumerable<Movie>> GetAllMovies() => _movieDAL.GetAllAsync();
