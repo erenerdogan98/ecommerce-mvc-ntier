@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_Entities
 {
-    public class ShoppingCartItem
+    public class ShoppingCartItem : IEntityBase
     {
         [Key]
         public int Id { get; set; }
