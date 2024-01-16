@@ -8,6 +8,7 @@ using NTier_ECommerce_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,15 +41,14 @@ namespace NTier_Ecommerce_BLL.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<Movie> GetByIdAsync(int id) => _movieDAL.GetByIdAsync(id);
-
-
-        public Task<Movie> GetMovieByIdAsync(int id, params Func<Movie, object>[] includeProperties)
+        public Task<IEnumerable<Movie>> GetAllAsync(params Expression<Func<Movie, object>>[] includeProperties)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Movie> GetMovieByIdAsync(int id)
+        public Task<Movie> GetByIdAsync(int id) => _movieDAL.GetByIdAsync(id);
+
+        public Task<Movie> GetByIdAsync(int id, params Expression<Func<Movie, object>>[] includeProperties)
         {
             throw new NotImplementedException();
         }
@@ -66,10 +66,10 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public Task UpdateAsync(int id, Movie entity) => _movieDAL.UpdateAsync(id, entity);
 
-        public Task UpdateMovieAsync(Movie data)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task UpdateMovieAsync(Movie data)
+        //{
+        //    throw new NotImplementedException();
+        //}
         //public Task AddMovie(Movie movie) => _movieDAL.AddAsync(movie);
 
         //public Task<IEnumerable<Movie>> GetAllMovies() => _movieDAL.GetAllAsync();

@@ -5,6 +5,7 @@ using NTier_ECommerce_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,17 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public Task<IEnumerable<Producer>> GetAllAsync() => _producerDAL.GetAllAsync();
 
+        public Task<IEnumerable<Producer>> GetAllAsync(params Expression<Func<Producer, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Producer> GetByIdAsync(int id) => _producerDAL.GetByIdAsync(id);
+
+        public Task<Producer> GetByIdAsync(int id, params Expression<Func<Producer, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task UpdateAsync(int id, Producer entity) => _producerDAL.UpdateAsync(id, entity);
 

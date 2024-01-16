@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NTier_ECommerce_Entities
 {
-    public class Order
+    public class Order 
     {
         [Key]
         public int Id { get; set; }
