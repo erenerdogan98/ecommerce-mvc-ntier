@@ -1,4 +1,4 @@
-﻿using NTier_Ecommerce_BLL.Cart;
+﻿using NTier_ECommerce_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NTier_Ecommerce_BLL.Abstract
 {
-    public interface IShoppingCartService : IGenericService<ShoppingCart>
+    public interface IShoppingCartService : IGenericService<ShoppingCartItem>
     {
     }
 }
