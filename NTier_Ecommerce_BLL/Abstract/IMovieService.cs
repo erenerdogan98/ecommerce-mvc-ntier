@@ -16,8 +16,8 @@ namespace NTier_Ecommerce_BLL.Abstract
         //Task UpdateMovie(Movie movie);
         //Task<Movie> GetMovieById(int id);
         Task AddNewMovieAsync(Movie data);
-        //Task<Movie> GetMovieByIdAsync(int id);
-        //Task UpdateMovieAsync(Movie data);
+        Task<Movie> GetMovieByIdAsync(int id);
+        Task UpdateMovieAsync(Movie data);
         Task<VMNewMovieDropdownsDTO> GetNewMovieDropdownsValues();
     }
 }

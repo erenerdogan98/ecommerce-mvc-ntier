@@ -2,7 +2,6 @@
 using NTier_ECommerce_DAL.Abstract;
 using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
-using System.Linq.Expressions;
 
 
 namespace NTier_Ecommerce_BLL.Concrete
@@ -30,17 +29,7 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public Task<IEnumerable<Actors>> GetAllAsync() => _actorsDal.GetAllAsync();
 
-        public Task<IEnumerable<Actors>> GetAllAsync(params Expression<Func<Actors, object>>[] includeProperties)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Actors> GetByIdAsync(int id) => _actorsDal.GetByIdAsync(id);
-
-        public Task<Actors> GetByIdAsync(int id, params Expression<Func<Actors, object>>[] includeProperties)
-        {
-            throw new NotImplementedException();
-        }
 
         //public Task RemoveActorAsync(int id) => _actorsDal.DeleteAsync(id);
 
