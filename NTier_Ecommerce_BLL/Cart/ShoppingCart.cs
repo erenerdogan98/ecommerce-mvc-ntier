@@ -73,6 +73,10 @@ namespace NTier_Ecommerce_BLL.Cart
 
         public async Task<ShoppingCartItem> GetByIdAsync(int id) => await _shoppingDAL.GetByIdAsync(id);
 
+        public List<ShoppingCartItem> GetShoppingCartItems() =>
+            _shoppingDAL.GetShoppingCartItems();
+        
+
         public double GetShoppingCartTotal() => _shoppingDAL.GetShoppingCartTotal();
 
         public void RemoveItemFromCart(Movie movie)
