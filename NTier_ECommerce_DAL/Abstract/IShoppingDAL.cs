@@ -14,5 +14,6 @@ namespace NTier_ECommerce_DAL.Abstract
         public void AddItemToCart(Movie movie);
         public void RemoveItemFromCart(Movie movie);
         public  Task ClearShoppingCartAsyn();
+        public List<ShoppingCartItem> GetShoppingCartItems(); // this will include to movie
     }
 }
