@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NTier_Ecommerce_BLL.Abstract;
 using NTier_Ecommerce_BLL.Cart;
+using NTier_ECommerce_UI.ViewModels;
 using System.Security.Claims;
 
 namespace NTier_ECommerce_UI.Controllers
@@ -9,11 +10,11 @@ namespace NTier_ECommerce_UI.Controllers
     [Authorize]
     public class OrdersController : Controller
     {
-        private readonly IMoviesService _moviesService;
+        private readonly IMovieService _moviesService;
         private readonly ShoppingCart _shoppingCart;
-        private readonly IOrdersService _ordersService;
+        private readonly IOrderService _ordersService;
 
-        public OrdersController(IMoviesService moviesService, ShoppingCart shoppingCart, IOrdersService ordersService)
+        public OrdersController(IMovieService moviesService, ShoppingCart shoppingCart, IOrderService ordersService)
         {
             _moviesService = moviesService;
             _shoppingCart = shoppingCart;
@@ -31,10 +32,10 @@ namespace NTier_ECommerce_UI.Controllers
 
         public IActionResult ShoppingCart()
         {
-            var items = _shoppingCart.GetAllAsync();
+            var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
 
-            var response = new ShoppingCartVM()
+            var response = new VMShoppingCart()
             {
                 ShoppingCart = _shoppingCart,
                 ShoppingCartTotal = _shoppingCart.GetShoppingCartTotal()
@@ -60,19 +61,20 @@ namespace NTier_ECommerce_UI.Controllers
 
             if (item != null)
             {
-                _shoppingCart.DeleteAsync(item);
+                _shoppingCart.RemoveItemFromCart(item);
             }
             return RedirectToAction(nameof(ShoppingCart));
         }
 
         public async Task<IActionResult> CompleteOrder()
         {
-            var items = _shoppingCart.GetAllAsync();
+            var items = await _shoppingCart.GetAllAsync();
+
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
-            await _shoppingCart.ClearShoppingCartAsync();
+            await _ordersService.StoreOrderAsync(items.ToList(), userId, userEmailAddress);
+            await _shoppingCart.ClearShoppingCartAsyn();
 
             return View("OrderCompleted");
         }
