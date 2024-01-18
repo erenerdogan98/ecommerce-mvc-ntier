@@ -35,6 +35,7 @@ namespace NTier_Ecommerce_BLL.Cart
         //    return new ShoppingCart(context) { ShoppingCartId = cartId };
         //}
         private readonly IShoppingDAL _shoppingDAL;
+        public List<ShoppingCartItem> ShoppingCartItems { get; set; }
         public ShoppingCart(IShoppingDAL shoppingDAL)
         {
             _shoppingDAL = shoppingDAL ?? throw new ArgumentNullException(nameof(_shoppingDAL));
