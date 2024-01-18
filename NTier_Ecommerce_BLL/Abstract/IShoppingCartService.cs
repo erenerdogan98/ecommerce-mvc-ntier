@@ -9,5 +9,9 @@ namespace NTier_Ecommerce_BLL.Abstract
 {
     public interface IShoppingCartService : IGenericService<ShoppingCartItem>
     {
+        public double GetShoppingCartTotal();
+        public void AddItemToCart(Movie movie);
+        public void RemoveItemFromCart(Movie movie);
+        public Task ClearShoppingCartAsyn();
     }
 }
