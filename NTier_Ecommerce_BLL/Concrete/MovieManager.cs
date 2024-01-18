@@ -8,6 +8,7 @@ using NTier_ECommerce_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,22 +36,21 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public Task<IEnumerable<Movie>> GetAllAsync() => _movieDAL.GetAllAsync();
 
-        public Task<IEnumerable<Movie>> GetAllAsync(Func<object, object> value)
+        public async Task<IEnumerable<Movie>> GetAllAsync(params Expression<Func<Movie, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            return await _movieDAL.GetAllAsync(includeProperties);
         }
 
         public Task<Movie> GetByIdAsync(int id) => _movieDAL.GetByIdAsync(id);
 
-
-        public Task<Movie> GetMovieByIdAsync(int id, params Func<Movie, object>[] includeProperties)
+        public async Task<Movie> GetByIdAsync(int id, params Expression<Func<Movie, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            return await _movieDAL.GetByIdAsync(id, includeProperties);
         }
 
-        public Task<Movie> GetMovieByIdAsync(int id)
+        public async Task<Movie> GetMovieByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _movieDAL.GetByIdAsync(id);
         }
 
         public async Task<VMNewMovieDropdownsDTO> GetNewMovieDropdownsValues()
