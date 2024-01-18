@@ -45,6 +45,16 @@ namespace NTier_Ecommerce_BLL.Cart
             await _shoppingDAL.AddAsync(shoppingCart);
         }
 
+        public void AddItemToCart(Movie movie)
+        {
+            _shoppingDAL.AddItemToCart(movie);
+        }
+
+        public async Task ClearShoppingCartAsyn() =>
+        
+          await _shoppingDAL.ClearShoppingCartAsyn();
+        
+
         public async Task DeleteAsync(int id)
         {
             await _shoppingDAL.DeleteAsync(id);
@@ -62,6 +72,13 @@ namespace NTier_Ecommerce_BLL.Cart
         }
 
         public async Task<ShoppingCartItem> GetByIdAsync(int id) => await _shoppingDAL.GetByIdAsync(id);
+
+        public double GetShoppingCartTotal() => _shoppingDAL.GetShoppingCartTotal();
+
+        public void RemoveItemFromCart(Movie movie)
+        {
+            _shoppingDAL.RemoveItemFromCart(movie);
+        }
 
         public async Task UpdateAsync(int id, ShoppingCartItem shoppingCart)
         {
