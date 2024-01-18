@@ -15,7 +15,7 @@ namespace NTier_ECommerce_DAL.EFRepository
     {
         private readonly Context _context;
         private readonly string _shoppingCartId;
-        public List<ShoppingCartItem> shoppingCartItems;
+        public List<ShoppingCartItem> shoppingCartItems { get; set; }
         public EFShoppingCartRepository(Context context, string shoppingCartId = null) : base(context)
         {
             _shoppingCartId = shoppingCartId;
