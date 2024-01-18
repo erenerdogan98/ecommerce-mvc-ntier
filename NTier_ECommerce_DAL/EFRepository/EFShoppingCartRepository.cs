@@ -15,6 +15,7 @@ namespace NTier_ECommerce_DAL.EFRepository
     {
         private readonly Context _context;
         private readonly string _shoppingCartId;
+        public List<ShoppingCartItem> shoppingCartItems;
         public EFShoppingCartRepository(Context context, string shoppingCartId = null) : base(context)
         {
             _shoppingCartId = shoppingCartId;
@@ -47,6 +48,12 @@ namespace NTier_ECommerce_DAL.EFRepository
             var items = await _context.ShoppingCartItems.Where(n => n.ShoppingCartId == _shoppingCartId).ToListAsync();
             _context.ShoppingCartItems.RemoveRange(items);
             SaveChangesAsync();
+        }
+
+        public List<ShoppingCartItem> GetShoppingCartItems()
+        {
+            
+            return shoppingCartItems ?? (shoppingCartItems = _context.ShoppingCartItems.Where(x => x.ShoppingCartId == _shoppingCartId).Include(x => x.Movie).ToList());
         }
 
         public double GetShoppingCartTotal() => _context.ShoppingCartItems.Where(n => n.ShoppingCartId == _shoppingCartId).Select(n => n.Movie.Price * n.Amount).Sum();
