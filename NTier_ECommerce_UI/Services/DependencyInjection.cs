@@ -5,6 +5,7 @@ using NTier_ECommerce_DAL.Database;
 using NTier_ECommerce_DAL.EFRepository;
 using AutoMapper;
 using NTier_ECommerce_UI.Mapping;
+using NTier_Ecommerce_BLL.Cart;
 
 namespace NTier_ECommerce_UI.Services
 {
@@ -26,6 +27,12 @@ namespace NTier_ECommerce_UI.Services
 
             services.AddScoped<IProducerService, ProducerManager>();        
             services.AddScoped<IProducerDAL, EFProducerRepository>();
+
+            services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<IOrderDAL, EFOrderRepository>();
+
+            services.AddScoped<IShoppingCartService, ShoppingCart>();
+            services.AddScoped<IShoppingDAL, EFShoppingCartRepository>();
 
             services.AddAutoMapper(typeof(MappingProfile));
         }
