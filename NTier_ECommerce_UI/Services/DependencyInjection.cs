@@ -6,6 +6,8 @@ using NTier_ECommerce_DAL.EFRepository;
 using AutoMapper;
 using NTier_ECommerce_UI.Mapping;
 using NTier_Ecommerce_BLL.Cart;
+using NTier_ECommerce_Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace NTier_ECommerce_UI.Services
 {
@@ -42,6 +44,8 @@ namespace NTier_ECommerce_UI.Services
                 // Creating an instance of IShoppingCartService
                 return new ShoppingCart(shoppingDAL);
             });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
 
             services.AddAutoMapper(typeof(MappingProfile));
         }
