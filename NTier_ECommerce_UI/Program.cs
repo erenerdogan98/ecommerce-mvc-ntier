@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
+using NTier_ECommerce_DAL.Database;
+
 
 namespace NTier_ECommerce_UI.Services
 {
@@ -19,12 +17,19 @@ namespace NTier_ECommerce_UI.Services
                 // Services configurations
                 builder.Services.ConfigureMyServices();
 
+                builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
                 var app = builder.Build();
 
                 // Configure the HTTP request pipeline.
-                if (!app.Environment.IsDevelopment())
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+                else
                 {
                     app.UseExceptionHandler("/Home/Error");
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                     app.UseHsts();
                 }
 
@@ -32,12 +37,17 @@ namespace NTier_ECommerce_UI.Services
                 app.UseStaticFiles();
 
                 app.UseRouting();
+                app.UseSession();
 
                 app.UseAuthorization();
 
                 app.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Movies}/{action=Index}/{id?}");
+
+                //seed database
+                AddDbInitializer.Seed(app);
+                AddDbInitializer.SeedUsersAndRolesAsync(app);
 
                 app.Run();
             }
