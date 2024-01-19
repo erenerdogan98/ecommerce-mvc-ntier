@@ -8,6 +8,7 @@ using NTier_ECommerce_UI.Mapping;
 using NTier_Ecommerce_BLL.Cart;
 using NTier_ECommerce_Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace NTier_ECommerce_UI.Services
 {
@@ -46,6 +47,13 @@ namespace NTier_ECommerce_UI.Services
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<Context>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
+            services.AddControllersWithViews();
 
             services.AddAutoMapper(typeof(MappingProfile));
         }
