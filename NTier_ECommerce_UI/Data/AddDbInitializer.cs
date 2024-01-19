@@ -2,11 +2,7 @@
 using NTier_ECommerce_Entities;
 using NTier_ECommerce_Entities.Enum;
 using NTier_ECommerce_Entities.Static;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace NTier_ECommerce_DAL.Database
 {
