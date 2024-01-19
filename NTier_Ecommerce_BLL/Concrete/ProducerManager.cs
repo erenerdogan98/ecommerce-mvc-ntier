@@ -1,19 +1,13 @@
 ﻿using NTier_Ecommerce_BLL.Abstract;
 using NTier_ECommerce_DAL.Abstract;
-using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace NTier_Ecommerce_BLL.Concrete
 {
     public class ProducerManager : IProducerService
     {
-        //private readonly EFProducerRepository eFProducerRepository;
         private readonly IProducerDAL _producerDAL;
         public ProducerManager(IProducerDAL producerDAL)
         {
