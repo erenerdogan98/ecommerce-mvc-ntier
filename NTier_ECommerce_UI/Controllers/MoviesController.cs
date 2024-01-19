@@ -74,7 +74,7 @@ namespace NTier_ECommerce_UI.Controllers
                 return View(movie);
             }
 
-            await _moviesService.AddNewMovieAsync(movie);
+            await _moviesService.AddAsync(movie);
             return RedirectToAction(nameof(Index));
         }
 
@@ -82,7 +82,7 @@ namespace NTier_ECommerce_UI.Controllers
         //GET: Movies/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
-            var movieDetails = await _moviesService.GetMovieByIdAsync(id);
+            var movieDetails = await _moviesService.GetByIdAsync(id);
             if (movieDetails == null) return View("NotFound");
 
             var response = new VMNewMovie()
@@ -123,7 +123,7 @@ namespace NTier_ECommerce_UI.Controllers
                 return View(movie);
             }
 
-            await _moviesService.UpdateMovieAsync(movie);
+            await _moviesService.UpdateAsync(id,movie);
             return RedirectToAction(nameof(Index));
 
         }
