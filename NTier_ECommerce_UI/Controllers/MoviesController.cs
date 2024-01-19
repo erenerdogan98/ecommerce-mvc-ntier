@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DTOLayer.MovieDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NTier_Ecommerce_BLL.Abstract;
@@ -32,9 +33,12 @@ namespace NTier_ECommerce_UI.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var filteredResultNew = allMovies.Where(x => string.Equals(x.MovieName, searchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(x.MovieDescription, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                var filteredResult = allMovies
+                    .Where(x => string.Equals(x.MovieName, searchString, StringComparison.CurrentCultureIgnoreCase) ||
+                                string.Equals(x.MovieDescription, searchString, StringComparison.CurrentCultureIgnoreCase))
+                    .ToList();
 
-                return View("Index", filteredResultNew);
+                return View("Index", filteredResult);
             }
 
             return View("Index", allMovies);
@@ -52,10 +56,7 @@ namespace NTier_ECommerce_UI.Controllers
         public async Task<IActionResult> Create()
         {
             var movieDropdownsData = await _moviesService.GetNewMovieDropdownsValues();
-
-            ViewBag.Cinemas = new SelectList(movieDropdownsData.Cinemas, "Id", "Name");
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "Id", "FullName");
+            PopulateDropdownsInViewBag(movieDropdownsData);
 
             return View();
         }
@@ -66,10 +67,7 @@ namespace NTier_ECommerce_UI.Controllers
             if (!ModelState.IsValid)
             {
                 var movieDropdownsData = await _moviesService.GetNewMovieDropdownsValues();
-
-                ViewBag.Cinemas = new SelectList(movieDropdownsData.Cinemas, "Id", "Name");
-                ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
-                ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "Id", "FullName");
+                PopulateDropdownsInViewBag(movieDropdownsData);
 
                 return View(movie);
             }
@@ -78,35 +76,20 @@ namespace NTier_ECommerce_UI.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         //GET: Movies/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var movieDetails = await _moviesService.GetByIdAsync(id);
             if (movieDetails == null) return View("NotFound");
 
-            var response = new VMNewMovie()
-            {
-                Id = movieDetails.Id,
-                Name = movieDetails.MovieName,
-                Description = movieDetails.MovieDescription,
-                Price = movieDetails.Price,
-                StartDate = movieDetails.StartingDate,
-                EndDate = movieDetails.EndingDate,
-                ImageURL = movieDetails.MovieImageUrl,
-                MovieCategory = movieDetails.CategoryMovie,
-                CinemaId = movieDetails.CinemaId,
-                ProducerId = movieDetails.ProducerId,
-                ActorIds = movieDetails.Actors_Movies.Select(x => x.ActorId).ToList(),
-            };
+            var response = MapMovieToViewModel(movieDetails);
 
             var movieDropdownsData = await _moviesService.GetNewMovieDropdownsValues();
-            ViewBag.Cinemas = new SelectList(movieDropdownsData.Cinemas, "Id", "Name");
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "Id", "FullName");
+            PopulateDropdownsInViewBag(movieDropdownsData);
 
             return View(response);
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Movie movie)
         {
@@ -115,17 +98,38 @@ namespace NTier_ECommerce_UI.Controllers
             if (!ModelState.IsValid)
             {
                 var movieDropdownsData = await _moviesService.GetNewMovieDropdownsValues();
-
-                ViewBag.Cinemas = new SelectList(movieDropdownsData.Cinemas, "Id", "Name");
-                ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
-                ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "Id", "FullName");
+                PopulateDropdownsInViewBag(movieDropdownsData);
 
                 return View(movie);
             }
 
-            await _moviesService.UpdateAsync(id,movie);
+            await _moviesService.UpdateAsync(id, movie);
             return RedirectToAction(nameof(Index));
+        }
 
+        private void PopulateDropdownsInViewBag(VMNewMovieDropdownsDTO movieDropdownsData)
+        {
+            ViewBag.Cinemas = new SelectList(movieDropdownsData.Cinemas, "Id", "Name");
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "Id", "FullName");
+        }
+
+        private VMNewMovie MapMovieToViewModel(Movie movie)
+        {
+            return new VMNewMovie
+            {
+                Id = movie.Id,
+                Name = movie.MovieName,
+                Description = movie.MovieDescription,
+                Price = movie.Price,
+                StartDate = movie.StartingDate,
+                EndDate = movie.EndingDate,
+                ImageURL = movie.MovieImageUrl,
+                MovieCategory = movie.CategoryMovie,
+                CinemaId = movie.CinemaId,
+                ProducerId = movie.ProducerId,
+                ActorIds = movie.Actors_Movies.Select(x => x.ActorId).ToList(),
+            };
         }
     }
 }
