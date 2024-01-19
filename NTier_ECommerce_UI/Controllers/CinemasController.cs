@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NTier_Ecommerce_BLL.Abstract;
 using NTier_ECommerce_Entities;
 using NTier_ECommerce_Entities.Static;
+using System.Threading.Tasks;
 
 namespace NTier_ECommerce_UI.Controllers
 {
@@ -10,72 +11,53 @@ namespace NTier_ECommerce_UI.Controllers
     public class CinemasController : Controller
     {
         private readonly ICinemaService _cinemaService;
+
         public CinemasController(ICinemaService cinemaService)
         {
             _cinemaService = cinemaService;
         }
-        [AllowAnonymous]
-        public async Task<IActionResult> Index()
-        {
-            var cinemas = await _cinemaService.GetAllAsync();
-            return View(cinemas);
-        }
 
-        // Get : Cinemas/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        [AllowAnonymous]
+        public async Task<IActionResult> Index() => View(await _cinemaService.GetAllAsync());
+
+        public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Logo,Name,Description")] Cinema cinema)
-        {
-            if (!ModelState.IsValid) return View(cinema);
-            await _cinemaService.AddAsync(cinema);
-            return RedirectToAction(nameof(Index));
-        }
+        public async Task<IActionResult> Create([Bind("Logo,Name,Description")] Cinema cinema) =>
+            await ProcessFormSubmissionAsync(cinema, () => _cinemaService.AddAsync(cinema), nameof(Index));
 
-        //Get: Cinemas/Details/id
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
-        {
-            var cinemaDetails = await _cinemaService.GetByIdAsync(id);
-            if (cinemaDetails == null) return View("NotFound");
-            return View(cinemaDetails);
-        }
+        public async Task<IActionResult> Details(int id) => await GetViewResultForEntityAsync(id);
 
-        //Get: Cinemas/Edit/id
-        public async Task<IActionResult> Edit(int id)
-        {
-            var cinemaDetails = await _cinemaService.GetByIdAsync(id);
-            if (cinemaDetails == null) return View("NotFound");
-            return View(cinemaDetails);
-        }
+        public async Task<IActionResult> Edit(int id) => await GetViewResultForEntityAsync(id);
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Cinema cinema)
-        {
-            if (!ModelState.IsValid) return View(cinema);
-            await _cinemaService.UpdateAsync(id, cinema);
-            return RedirectToAction(nameof(Index));
-        }
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Cinema cinema) =>
+            await ProcessFormSubmissionAsync(cinema, () => _cinemaService.UpdateAsync(id, cinema), nameof(Index));
 
-        //Get: Cinemas/Delete/id
-        public async Task<IActionResult> Delete(int id)
-        {
-            var cinemaDetails = await _cinemaService.GetByIdAsync(id);
-            if (cinemaDetails == null) return View("NotFound");
-            return View(cinemaDetails);
-        }
+        public async Task<IActionResult> Delete(int id) => await GetViewResultForEntityAsync(id);
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirm(int id)
+        public async Task<IActionResult> DeleteConfirm(int id) =>
+            await ProcessFormSubmissionAsync(null, () => _cinemaService.DeleteAsync(id), nameof(Index));
+
+        private async Task<IActionResult> GetViewResultForEntityAsync(int id)
         {
             var cinemaDetails = await _cinemaService.GetByIdAsync(id);
-            if (cinemaDetails == null) return View("NotFound");
-
-            await _cinemaService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return cinemaDetails == null ? View("NotFound") : View(cinemaDetails);
         }
+
+        private async Task<IActionResult> ProcessFormSubmissionAsync(Cinema cinema, Func<Task> action, string redirectToAction)
+        {
+            if (IsModelStateValid(cinema)) return View(cinema);
+
+            await action.Invoke();
+            return RedirectToAction(redirectToAction);
+        }
+
+        private bool IsModelStateValid(Cinema cinema) => ModelState.IsValid;
     }
 }
+
+/*  EXPLANATION 
+ */
