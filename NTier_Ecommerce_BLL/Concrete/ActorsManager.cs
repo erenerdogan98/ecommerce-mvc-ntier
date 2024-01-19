@@ -1,6 +1,5 @@
 ﻿using NTier_Ecommerce_BLL.Abstract;
 using NTier_ECommerce_DAL.Abstract;
-using NTier_ECommerce_DAL.EFRepository;
 using NTier_ECommerce_Entities;
 using System.Linq.Expressions;
 
@@ -18,15 +17,9 @@ namespace NTier_Ecommerce_BLL.Concrete
             _actorsDal = actorsDAL ?? throw new ArgumentNullException(nameof(actorsDAL));
         }
 
-        //public Task AddActorAsync(Actors actor) => _actorsDal.AddAsync(actor);
-
         public Task AddAsync(Actors actor) => _actorsDal.AddAsync(actor);
 
         public Task DeleteAsync(int id) => _actorsDal.DeleteAsync(id);
-
-        //public Task<Actors> GetActorByIdAsync(int actorId) => _actorsDal.GetByIdAsync(actorId);
-
-        //public Task<IEnumerable<Actors>> GetAllActorsAsync() => _actorsDal.GetAllAsync();
 
         public Task<IEnumerable<Actors>> GetAllAsync() => _actorsDal.GetAllAsync();
 
@@ -37,10 +30,6 @@ namespace NTier_Ecommerce_BLL.Concrete
 
         public async Task<Actors> GetByIdAsync(int id, params Expression<Func<Actors, object>>[] includeProperties) =>
            await _actorsDal.GetByIdAsync(id, includeProperties);
-
-        //public Task RemoveActorAsync(int id) => _actorsDal.DeleteAsync(id);
-
-        //public Task UpdateActorAsync(int id, Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
 
         Task IGenericService<Actors>.UpdateAsync(int id, Actors actor) => _actorsDal.UpdateAsync(actor.Id, actor);
     }
