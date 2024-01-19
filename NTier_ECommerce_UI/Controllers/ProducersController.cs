@@ -4,7 +4,6 @@ using NTier_Ecommerce_BLL.Abstract;
 using NTier_ECommerce_Entities.Static;
 using NTier_ECommerce_Entities;
 
-
 namespace eTickets.Controllers
 {
     [Authorize(Roles = UserRoles.Admin)]
@@ -18,73 +17,41 @@ namespace eTickets.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
-        {
-            var allProducers = await _service.GetAllAsync();
-            return View(allProducers);
-        }
+        public async Task<IActionResult> Index() => View(await _service.GetAllAsync());
 
-        //GET: producers/details/1
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
-        {
-            var producerDetails = await _service.GetByIdAsync(id);
-            if (producerDetails == null) return View("NotFound");
-            return View(producerDetails);
-        }
+        public async Task<IActionResult> Details(int id) => await GetViewResultForEntityAsync(id);
 
-        //GET: producers/create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Bio")] Producer producer)
-        {
-            if (!ModelState.IsValid) return View(producer);
+        public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Bio")] Producer producer) =>
+            await ProcessFormSubmissionAsync(producer.Id, async () => await _service.AddAsync(producer), nameof(Index));
 
-            await _service.AddAsync(producer);
-            return RedirectToAction(nameof(Index));
-        }
-
-        //GET: producers/edit/1
-        public async Task<IActionResult> Edit(int id)
-        {
-            var producerDetails = await _service.GetByIdAsync(id);
-            if (producerDetails == null) return View("NotFound");
-            return View(producerDetails);
-        }
+        public async Task<IActionResult> Edit(int id) => await GetViewResultForEntityAsync(id);
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer)
-        {
-            if (!ModelState.IsValid) return View(producer);
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer) =>
+            await ProcessFormSubmissionAsync(producer.Id, async () => await _service.UpdateAsync(id, producer), nameof(Index));
 
-            if (id == producer.Id)
-            {
-                await _service.UpdateAsync(id, producer);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(producer);
-        }
-
-        //GET: producers/delete/1
-        public async Task<IActionResult> Delete(int id)
-        {
-            var producerDetails = await _service.GetByIdAsync(id);
-            if (producerDetails == null) return View("NotFound");
-            return View(producerDetails);
-        }
+        public async Task<IActionResult> Delete(int id) => await GetViewResultForEntityAsync(id);
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var producerDetails = await _service.GetByIdAsync(id);
-            if (producerDetails == null) return View("NotFound");
+        public async Task<IActionResult> DeleteConfirmed(int id) =>
+            await ProcessFormSubmissionAsync(id, async () => await _service.DeleteAsync(id), nameof(Index));
 
-            await _service.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+        private async Task<IActionResult> GetViewResultForEntityAsync(int id)
+        {
+            var entityDetails = await _service.GetByIdAsync(id);
+            return entityDetails == null ? View("NotFound") : View(entityDetails);
+        }
+
+        private async Task<IActionResult> ProcessFormSubmissionAsync(int id, Func<Task> action, string redirectToAction)
+        {
+            if (id <= 0) return View("NotFound");
+
+            await action.Invoke();
+            return RedirectToAction(redirectToAction);
         }
     }
 }
