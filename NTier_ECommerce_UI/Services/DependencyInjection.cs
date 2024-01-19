@@ -34,6 +34,15 @@ namespace NTier_ECommerce_UI.Services
             services.AddScoped<IShoppingCartService, ShoppingCart>();
             services.AddScoped<IShoppingDAL, EFShoppingCartRepository>();
 
+            services.AddScoped(sp =>
+            {
+                // Obtaining the IShoppingDAL service (using dependency injection)
+                var shoppingDAL = sp.GetRequiredService<IShoppingDAL>();
+
+                // Creating an instance of IShoppingCartService
+                return new ShoppingCart(shoppingDAL);
+            });
+
             services.AddAutoMapper(typeof(MappingProfile));
         }
     }
