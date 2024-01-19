@@ -52,6 +52,7 @@ namespace NTier_ECommerce_UI.Controllers
             {
                 _shoppingCart.AddItemToCart(item);
             }
+
             return RedirectToAction(nameof(ShoppingCart));
         }
 
@@ -63,17 +64,17 @@ namespace NTier_ECommerce_UI.Controllers
             {
                 _shoppingCart.RemoveItemFromCart(item);
             }
+
             return RedirectToAction(nameof(ShoppingCart));
         }
 
         public async Task<IActionResult> CompleteOrder()
         {
-            var items = await _shoppingCart.GetAllAsync();
-
+            var items = (await _shoppingCart.GetAllAsync()).ToList();
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-            await _ordersService.StoreOrderAsync(items.ToList(), userId, userEmailAddress);
+            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
             await _shoppingCart.ClearShoppingCartAsyn();
 
             return View("OrderCompleted");
